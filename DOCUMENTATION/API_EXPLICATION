@@ -1,0 +1,76 @@
+API.py
+-------------------------------------------------------------------------------------------------------------------
+Complément au LORAWAN :https://scem-eset.univ-smb.fr/wp-content/uploads/2017/02/Cours-LORA-LORAWAN.pdf
+
+Librairies requises : mysql.connector , requests
+		       >>pip3 install mysql.connector
+		       >>pip3 install requests
+
+--> Utilisation de la librairie 'request' avec le préfixe 'req' .
+
+Dépendances annexes :
+	-Base de données type 'MYSQL' avec une base de donnée incluse et les paramètres correspondant aux fonctions de la librairie utilisant SQL.
+
+
+1. url_ttn :  chaine de charactere 'str', correspond à l'URL Downlink du TTN. Retourne la chaine.
+Exemple: 
+'https://integrations.thethingsnetwork.org/ttn-eu/api/v2/down/my-app-id/my-process-id?key=ttn-account-v2.secret'
+DOWNLINK-->(Cf : https://www.thethingsnetwork.org/docs/applications/http/index.html)
+
+2. conndb() :  connexion à une BDD. Les paramètres dans la fonction sont à changer selon les utilisateurs. host = @ip_de_la_base , user = utilisateur de la base, password = mot de passe de l'utilisateur, database = database à utilise. 
+	Les paramètres sont de type 'str'.
+
+3. idnom(id) :  ([id])id --> 'int' : Arrivée d'un entier			
+	L'entier est l'id asscocié à la page auquel une fonction appelle. Cette fonction permet d'avoir le texte clair auquel l'id est associé. 
+	Retour en 'str' de la valeur en clair associé à l'id.
+
+4. apipoint(rd) :  ([rd])rd --> bytes 'b' : Arrivée d'un objet bytes  				(Cf :https://www.tutorialsteacher.com/python/bytes-method) 
+Création d'un objet JSON après décodage des données en utf-8. Recherche des données par index à adapter en fonction de l'envoi par le TTN.				     UPLINK-->(Cf : https://www.thethingsnetwork.org/docs/applications/http/index.html)
+	Retour des 5 valeurs sous forme 'str'.
+
+5.envoisql(humair,tempair,tempsol,humsol,soleil) :([humair,tempair,tempsol,humsol,soleil])* --> 'str' :  Insertion des données dans la base de données .
+Appel de la connexion à la base de données ( Cf :  2. ). Insertion des données avec une requete SQL. Requete à adapter en fonction de la BDD. 
+	En + : récupération de l'heure et de la date pour l'insertion dans la BDD.
+	Ne retourne qu'un message uniquement pour débug.
+
+6.entrereglageval(val,id,besoinretour) :([val][id,besoinretour])val --> 'str', id,besoinretour --> 'int' :  Insertion des réglages dans la base de données .
+Appel du changement de l'id chiffré en id clair. (Cf : 3 ).Appel de la connexion à la base de données ( Cf :  2. ). Insertion des données avec une requete SQL. Requete à adapter en fonction de la BDD. val est la valeur de réglage, l'id le type de réglage (LED, CHAUFFAGE OU l'ARROSOIR).
+	En + : récupération de l'heure et de la date pour l'insertion dans la BDD.
+	Ne retourne qu'un message uniquement si le besoinderetour == 1.
+		>> Le retour sert si il faut une redirection de page web
+
+7.visuvallreglage(id,nb=50) :([id][nb]) id --> 'int' ,nb --> 'int':  Historique de réglage d'une page selon l'id, et éventuellement le nombre de valeurs ( 50 par défaut).
+	Appel du changement de l'id chiffré en id clair. (Cf : 3 ).Appel de la connexion à la base de données ( Cf :  2. ). Insertion des données avec une requete SQL. Requete à adapter en fonction de la BDD. 	En + : récupération de l'heure et de la date pour l'insertion dans la BDD.
+	Retourne un tableau de l'historique de réglage avec l'heure.
+
+8. reglage(ent) : ([ent]) ent --> 'str' : Envoi d'une donnée sur le TTN.
+DOWNLINK-->(Cf : https://www.thethingsnetwork.org/docs/applications/http/index.html)
+	Convertion de la valeur dans une chaine de caractere en un nombre entier, remis dans une échelle entre 0-255 via une conversion mathématique pour recevoir un seul octet. 	Conversion mise ensuite en entier. 
+Décodage de l'entier en objet bytes et conversion en base64 et mise en codage 'utf-8' pour l'envoi. Création d'un dictionnaire d'envoi et envoi d'une requete post de ce dictionnaire.
+
+9. sqlgraph(): Récupération des données dans la base SQL.
+Appel de la connexion à la base de données ( Cf :  2. ).Demande de données à la base. Requete à adapter en fonction de la BDD. (Ici demande des 20 dernières valeurs de chaque catégorie dans la requete).
+Création d'un tableau de valeurs par catégorie.
+	Retour de chaque tableau de valeurs.
+
+10. tempfixe(): Retourne l'heure.
+	Retourne l'heure au moment de l'appel de la fonction.
+	Retourne un 'str' avec l'heure.
+
+11. sqldernier() : Retourne la dernière valeur de la BDD. Appel de la connexion à la base de données ( Cf :  2. ).Demande de données à la base. Requete à adapter en fonction de la BDD. (Ici demande les dernières valeurs de chaque catégories).
+	Retourne la dernière valeur de chaque catégorie en 'str'.
+
+12. id(r,c,a)([r,c,a]) * --> 'str'  : Retourne l'id en chiffre et la valeur en fonction de l'arrivée des 3 id.
+	Si une valeur > 0 : on retourne sa valeur puis son id. Le reste doit être négatif.
+
+13.sqlvisucommande(id = - 1) :([id]) id --> 'int'(par défaut id = -1) :  Visualisation du mode de commande.
+	Appel du changement de l'id chiffré en id clair. (Cf : 3 ).Appel de la connexion à la base de données ( Cf :  2. ). Insertion des données avec une requete SQL. Requete à adapter en fonction de la BDD.
+	MODE 1 si l'id est différent de l'ID par défaut :
+	Si le retour de la requete SQL est 0 , c'est le mode manuel , retour de 'manuel' (str)
+	Sinon mode auto , retour de 'auto' (str)
+	MODE 2 :
+	Retourne un tableau des valeurs de commandes
+
+14.changement_etat(id) :([id]) id --> 'int' :  Change d'etat une commande selon l'id.
+	Appel du changement de l'id chiffré en id clair. (Cf : 3 ).Appel de la connexion à la base de données ( Cf :  2. ). Appel de la fcontion pour visualiser la commande en cour et préparation de la commande à entrer à l'inverse de l'actuelle. Requete Sql pour la mise à jour de la BDD.Requete à adapter en fonction de la BDD.
+	Retourne la page web en fonction de l'ID.
