@@ -49,6 +49,8 @@ DANS UN TERMINAL (Ctrl + Alt + t ) : (Ne pas inclure de $ dans les commandes!)
 	$sudo apt-get install mariadb-server
 	$sudo mysql
 
+EXPORTER LA BDD PRESENTE DANS LE DOSSIER BDD_COMMANDES
+
 	MDB>>CREATE USER 'admin'@'%' IDENTIFIED BY 'mot_de_passe';
 	MDB>>GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION;
 	MDB>>FLUSH PRIVILEGES;
