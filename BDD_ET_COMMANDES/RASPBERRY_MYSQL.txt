@@ -1,0 +1,12 @@
+CONF SERVER:
+sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
+
+CONF USER :
+
+$sudo mmysql 
+
+>CREATE USER 'bdd'@'localhost' IDENTIFIED BY 'passmysql';
+
+>GRANT ALL PRIVILEGES ON MY_DATABASE_NAME.* TO 'bdd'@'%' IDENTIFIED BY 'passmysql';
+
+>FLUSH privileges;
