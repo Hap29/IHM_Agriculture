@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang = fr>
+  <head>
+    <meta charset="utf-8" />
+    <title>Dashboard | Graphiques</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}">
+    <link rel="icon" type="image/ico" href="{{ url_for('static', filename='tbd.png') }}" />
+    <script src='static/Chart.min.js'></script>  <!-- import plugin script -->
+  
+  </head>
+
+  <body>
+    <header>
+    
+      <ul>  <!--menu + surbrillance-->
+        <li>
+          <a class="active"><FONT COLOR= #2c405a ><b>IHM AGRICULTURE</b></FONT></a>
+        </li>
+        <li>   
+          <a href="/">REGLAGES</a>
+        </li>
+        <li>   
+          <a href="/graphiques">HISTORIQUE DES MESURES</a>
+        </li>
+      </ul>
+  </header>
+	<div>TEST {{humair}}<div/>
+  <table BORDER=1 CELLPADDING=1 ALIGN='CENTER' >
+    <tr>
+        <td WIDTH="50%" BGCOLOR="#F2F2F2"> 
+          <h1>Températures (air/sol) : </h1>
+          <canvas id="tmpe" width="600" height="400"></canvas>
+
+        </td>
+
+        <td WIDTH="50%" BGCOLOR="#F2F2F2"> 
+          <h1>Humidité (air/sol) : </h1>
+          <canvas id="humi" width="600" height="400"></canvas>
+        </td> 
+    </tr>
+  </table> 
+
+  <table BORDER=1 CELLPADDING=1 ALIGN='CENTER' >
+    <tr>
+      <td WIDTH="100%" BGCOLOR="#F2F2F2"> 
+        <h1>Ensoleillement :</h1>
+        <canvas id="enso" width="600" height="400"></canvas>
+      </td> 
+    </tr>
+  </table>  
+
+    
+    
+<script>
+      
+      Chart.defaults.global.responsive = false;
+
+      // DEFINITION DU GRAPHIQUE
+      var chartData = {
+        labels : [{% for item in labels %}
+                   "{{item}}",
+                  {% endfor %}],
+        datasets : [
+        {
+            label: 'Temperature Air',
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(255, 12, 12, 0.4)",
+            borderColor: "rgba(255, 12, 12, 1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(255, 12, 12, 1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(255, 12, 12, 1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data : [{% for item in tempair %}
+                      {{item}},
+                    {% endfor %}],
+            spanGaps: false
+        },
+        {
+            label: 'Temperature Sol',
+            fill : false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(150, 7, 7, 0.4)",
+            borderColor: "rgba(150, 7, 7, 1.00)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(150, 7, 7, 1.00)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(150, 7, 7, 1.00)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data : [{% for item in tempsol %}
+                      {{item}},
+                    {% endfor %}],
+            spanGaps: false
+        }
+      ]
+    }
+
+      // VARIABLES POUR LA RECUPERATION ET LA MISE EN PLACE FUTURE DU
+      var holder = document.getElementById("tmpe");
+      var ctx = document.getElementById("tmpe").getContext("2d");
+
+      // CREATION DU GRAPHIQUE A PARTIR DE LA LIBRAIRIE EN JS
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+          tooltips: {
+            enabled: true,
+            mode: 'single',
+            callbacks: {
+              label: function(tooltipItems, data) {
+                       return tooltipItems.yLabel + ' °C' ;
+                     }
+            }
+          },
+        }
+      });
+    </script>
+
+<script>
+      
+  Chart.defaults.global.responsive = false;
+
+  // DEFINITION DU GRAPHIQUE
+  var chartData = {
+    labels : [{% for item in labels %}
+               "{{item}}",
+              {% endfor %}],
+
+    datasets : [
+    {
+        label: 'Humidité Air',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(75,192,192,1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data : [{% for item in humair %}
+                  {{item}},
+                {% endfor %}],
+        spanGaps: false
+    },
+    {
+        label: 'Humidité Sol',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: "rgba(19, 117, 153, 0.4)",
+        borderColor: "rgba(19, 117, 153, 1.00)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(19, 117, 153, 1.00)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(19, 117, 153, 1.00)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data : [{% for item in humsol %}
+                  {{item}},
+                {% endfor %}],
+        spanGaps: false
+    }
+  ]
+}
+
+  // VARIABLES POUR LA RECUPERATION ET LA MISE EN PLACE FUTURE DU
+  var holder = document.getElementById("humi");
+  var ctx = document.getElementById("humi").getContext("2d");
+
+  // CREATION DU GRAPHIQUE A PARTIR DE LA LIBRAIRIE EN JS
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: chartData,
+    options: {
+      tooltips: {
+        enabled: true,
+        mode: 'single',
+        callbacks: {
+          label: function(tooltipItems, data) {
+                   return tooltipItems.yLabel + ' %' ;
+                 }
+        }
+      },
+    }
+  });
+</script>
+
+<script>
+      
+  Chart.defaults.global.responsive = false;
+
+  // DEFINITION DU GRAPHIQUE
+  var chartData = {
+    labels : [{% for item in labels %}
+               "{{item}}",
+              {% endfor %}],
+
+    datasets : [
+    {
+        label: 'Ensoleillement',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: "rgba(247,220,111,0.4)",
+        borderColor: "rgba(247, 220, 111, 1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(247, 220, 111, 1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(247, 220, 111, 1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data : [{% for item in enso %}
+                  {{item}},
+                {% endfor %}],
+        spanGaps: false
+    }
+  ]
+}
+
+  // VARIABLES POUR LA RECUPERATION ET LA MISE EN PLACE FUTURE DU
+  var holder = document.getElementById("enso");
+  var ctx = document.getElementById("enso").getContext("2d");
+
+  // CREATION DU GRAPHIQUE A PARTIR DE LA LIBRAIRIE EN JS
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: chartData,
+    options: {
+      tooltips: {
+        enabled: true,
+        mode: 'single',
+        callbacks: {
+          label: function(tooltipItems, data) {
+                   return tooltipItems.yLabel + ' w/m²' ;
+                 }
+        }
+      },
+    }
+  });
+</script>
+
+  </body>
+</html>
