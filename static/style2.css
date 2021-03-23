@@ -1,0 +1,43 @@
+body {                   /* CORPS/GLOBALITE DU CODE HTML */
+  width: 100%;
+  margin:auto;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(0, 0, 0);
+  background-color: white;    
+}
+
+header {                /* POSITION DE L'EN-TETE */
+	position: relative;
+  width: 100%;
+}
+
+ul {                   /* PARAMETRAGE DU MENU PRINCIPAL */
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #c5e1a5;
+}
+
+li {                   /* ALIGNAGE FONCTION DU MENU */
+  float: left;
+}
+
+li a {                 /* TEXTE DES MENUS */
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 25px 70px;
+  text-decoration: white;
+}
+
+li a:hover:not(.active) {  /* COULEUR SI MENU PAS SURVOLE PAR LA SOURIS*/
+  background-color: rgba(148, 229, 55, 0.30);
+}
+/*-----------------------------------------*/
+.active {                 /* TEXTE PRINCIPAL DE LA CLASSE 'ACTIVE' */
+  background-color: rgba(148, 229, 55, 0.30);
+  color : #2c405a ;
+
+}
+/*-----------------------------------------*/
