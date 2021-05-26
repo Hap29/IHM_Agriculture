@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang = fr>
+	<head> <!--DEFINITION DE LA PAGE WEB POUR LE NAVIGATEUR-->
+		<meta charset="utf-8">
+        <meta name="author" content="©Emmanuel_BOURHIS, LCR , 2021">
+		<title> Dashboard | Mode</title> 
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylereg.css') }}">
+        <link rel="icon" type="image/ico" href="{{ url_for('static', filename='tbd.png') }}" />
+    </head>
+
+    <body>
+        <header><!--EN-TETE DE PAGE-->
+    
+            <ul>  <!--MENU PRINCIPAL DU HAUT DE PAGE-->
+                <li>
+                    <a class="active"><FONT COLOR= #2c405a ><b>IHM AGRICULTURE</b></FONT></a>
+                </li>
+                <li>   
+                    <a href="/">VALEURS DIRECT</a>
+                </li>
+                <li>   
+                    <a href="/commandeL">COMMANDE LED</a>
+                </li>
+                <li>   
+                    <a href="/commandeC">COMMANDE CHAUFFAGE</a>
+                </li>
+                <li>   
+                    <a href="/commandeA">COMMANDE ARROSOIR</a>
+                </li>
+                <li>   
+                    <a href="/graphiques">HISTORIQUE DES MESURES</a>
+                </li>
+            </ul>
+
+    </header>
+    <body>
+        <table id ="tab" align="center">
+            <caption>REGLAGE MODE AUTOMATIQUE TUBE LED
+            </caption>
+            <tr>
+            <form action="/autochnt1/s" id="seuils" method="POST">
+                <td>Réglage du seuil de luminosité à régler :
+                    <table id = "tab" align="center">
+                        <tr>
+                            <input class="tailleetexte" type="hidden" id="tempair" name="tempair" value={{dn[0][1]}} maxlength="3">
+                            <input class="tailleetexte" type="hidden" id="tempsol" name="tempsol" value={{dn[0][2]}} maxlength="3">
+                            <input class="tailleetexte" type="hidden" id="humair" name="humair" value={{dn[0][3]}} maxlength="3">
+                            <input class="tailleetexte" type="hidden" id="humsol" name="humsol" value={{dn[0][4]}} maxlength="3">
+                            <td>Ensolleilement (W/m²):<br>
+                                <input class="tailleetexte" type="text" id="enso" name="enso" value={{dn[0][5]}} maxlength="3">
+                            </td>
+                        </tr>
+                    </table>
+                <input type="submit" class="bouton" value="Changement seuil">
+                </td>
+            </form>
+            </tr>
+            <tr>
+            <form action="/autochnt1/c" id="conditions" method="POST">
+                <td>Réglage des conditions :
+                    <table id = "tabint" align="center">
+                        <tr>
+                            <th>
+                                Réglage en dessous du seuil:
+                            </th>
+                            <th>
+                                Réglage au dessus du seuil:
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                Réglage fixe de <input class="tailleetexte" type="text" id="fixdessous" name="fixdessous" value={{dn[0][6]}} maxlength="3"> V
+                            </td>
+                            <td>
+                            <input type="radio" name="type-reg" value="fixe" {{lreg[0]}} /> {#METTRE DU JINJA POUR LE checked #}
+                            Réglage fixe de <input class="tailleetexte" type="text" id="fixdessus" name="fixdessus" value={{dn[0][7]}} maxlength="3"> V<br><div align=center>ou</div>
+                            <input type="radio" name="type-reg" value="prog"  {{lreg[1]}}/>
+                            Réglage progressif :<br>
+                                Augmenter d'un palier de <input class="tailleetexte" type="text" id="palier" name="palier" value={{dn[0][8]}} maxlength="3"> V
+                                quand l'ensolleilement descend de <input class="tailleetexte" type="text" id="dlux" name="dlux" value={{dn[0][9]}} maxlength="3"> W/m²                                 
+                            </td>
+
+                    </table>
+                    <input type="submit" class="bouton" value="Changement conditions">
+            </form>
+                </td>
+            </tr>
+        </table>
+    
+    </body>
+</html>

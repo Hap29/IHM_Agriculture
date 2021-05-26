@@ -1,0 +1,238 @@
+body {                   /* CORPS/GLOBALITE DU CODE HTML */
+  width: 100%;
+  margin:auto;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(0, 0, 0);
+  background-color: white;    
+}
+
+header {                /* POSITION DE L'EN-TETE */
+	position: relative;
+  width: 100%;
+}
+
+ul {                   /* PARAMETRAGE DU MENU PRINCIPAL */
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #c5e1a5;
+}
+
+li {                   /* ALIGNAGE FONCTION DU MENU */
+  float: left;
+}
+
+li a {                 /* TEXTE DES MENUS */
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 25px 40px;
+  text-decoration: white;
+}
+
+li a:hover:not(.active) {  /* COULEUR SI MENU PAS SURVOLE PAR LA SOURIS*/
+  background-color: rgba(148, 229, 55, 0.30);
+}
+/*-----------------------------------------*/
+.active {                 /* TEXTE PRINCIPAL DE LA CLASSE 'ACTIVE' */
+  background-color: rgba(148, 229, 55, 0.30);
+  color : #2c405a ;
+
+}
+/*-----------------------------------------*/
+/* PARAMETRAGE DU BOUTON POUR AUTO/MANUEL */
+.mode_reg{
+text-align: right;
+padding-right: 15px;
+}
+
+.manuel {                 
+  background-color: rgb(202, 60, 60);
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  cursor: pointer;
+  width: auto;
+  height: auto;
+}
+.auto {                 
+  background-color: rgb(28, 184, 65);
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  cursor: pointer;
+  width: auto;
+  height: auto;
+}
+.pagereg{
+  border-radius: 5px;
+  border: solid thin #929292;
+  background: #F6F6F6;
+  color: black;
+  padding: 3px 8px;
+  margin: 2px;
+  text-decoration: none;
+}
+/*-----------------------------------------*/
+/* PARAMETRAGE DU BOUTON POUR LE FORMULAIRE */
+.bouton {                 
+  background-color: #2c405a;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  cursor: pointer;
+  width: 370px;
+  height: 40px;
+  margin-top: 5px;
+  margin-bottom: 40px;
+}
+/*-PARAMETRE DU TABLEAU-*/
+/*-----------------------------------------*/
+#tab {
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 8px;
+  border-width: 1px;
+  border: solid 1px black;
+}
+#tab caption{
+  padding-bottom: 5px;
+}
+
+#tab td {
+  border: 1px solid black;
+}
+
+#tab th {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px ;
+  border: 1px solid black;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #c5e1a5;
+  color: black;
+  
+}
+/*-----------------------------------------*/
+.comm {                /* PARAMETRAGE GLOGAL DE LA GLISSIERE*/
+  display: inline-block;
+  width: auto;
+  height: auto;
+  padding: 0;
+}
+.comm input {         /* TAILLE ET POSTION DE LA GLISSIERE */
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  transform-origin: 75px 75px;
+}
+
+.slider {                /* PARAMETRAGE GLOGAL DE LA GLISSIERE*/
+  display: inline-block;
+  width: auto;
+  height: auto;
+  padding: 0;
+}
+.slider input {         /* TAILLE ET POSTION DE LA GLISSIERE */
+  width: 800px;
+  height: 30px;
+  margin: 0;
+  transform-origin: 75px 75px;
+}
+/*-----------------------------------------*/
+/* AFFICHAGE DES LABELS SUR LA GLISSIERE  */
+input[type="range"] {   
+    position: relative;
+    margin-left: 1em;
+}
+
+input[type="range"]:after,
+input[type="range"]:before {
+    position: absolute;
+    top: -1em;
+    color: rgb(8, 0, 0);
+}
+input[type="range"]:before {
+    left:0em;
+    content: attr(min);
+}
+input[type="range"]:after {
+    right: 0em;
+    content: attr(max);
+}
+/*-----------------------------------------*/
+/*SCROLL BAR SUR LE COTE                  */
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+/*-----------------------------------------*/
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 5px 5px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+.decon
+  {
+    border-radius: 5px;
+    border: solid thin #929292;
+    background: #F6F6F6;
+    color: black;
+    padding: 3px 8px;
+    margin-left: 2px;
+    text-decoration: none;
+  }

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang = fr>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="author" content="©Emmanuel_BOURHIS, LCR , 2021">
+    <title>Dashboard | Commandes</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style3.css') }}">
+    <link rel="icon" type="image/ico" href="{{ url_for('static', filename='tbd.png') }}" />
+    <script src='static/Chart.min.js'></script>  <!-- import plugin script -->
+  </head>
+
+  <body>
+    <header>
+
+      <ul>  <!--MENU PRINCIPAL DU HAUT DE PAGE-->
+        <li>
+            <a class="active"><FONT COLOR= #2c405a ><b>IHM AGRICULTURE</b></FONT></a>
+        </li>
+        <li>   
+            <a href="/">VALEURS DIRECT</a>
+        </li>
+        <li>   
+            <a href="/commandeL">COMMANDE LED</a>
+        </li>
+        <li>   
+            <a href="/commandeC">COMMANDE CHAUFFAGE</a>
+        </li>
+        <li>   
+            <a href="/commandeA">COMMANDE ARROSOIR</a>
+        </li>
+        <li>   
+            <a href="/graphiques">HISTORIQUE DES MESURES</a>
+        </li>
+    </ul>
+  </header>
+  <p><a href="/logout" class="decon">Deconnexion</a></p>
+
+        <div class="mode_reg">
+            <p>
+                Le réglage du chauffage est en mode {{typec(2)}}.
+            </p>
+            <form action="/commandes2" method="POST">
+                <button type="submit" class = {{typec(2)}} onClick="window.location.reload(); " >
+                    Activer mode {% if typec(2) =='manuel'%} auto
+                    {%else%} manuel
+                    {%endif%}
+                </button>
+            </form>
+            <p>
+                <a href="/regmodeC" class="pagereg">Réglage du mode auto</a>
+            </p>
+        </div>
+
+  <CENTER>
+    <form action="/commandes" method="POST">
+        <p> <FONT COLOR=#2c405a><b>RÉGLAGE DU CHAUFFAGE MANUELLEMENT :</b> </FONT>
+        </p>
+        <center>
+        <div class="slider" >  <!--DIVISION DE LA GLISSIERE-->
+           <input type="range" id="Chauffage" name="Chauffage" min="0" max="10" value={{vals[0][0]}} step="0.1" list="tickmarks"  > <!--DEFIFINITON DE LA GLISSIERE-->
+           <p>Valeur de réglage: <span id="affregl"></span> W</p> <!--FONCTION D'AFFICHAGE DE LA VALEUR (foncttion JS en bas du code)-->
+            <datalist id="tickmarks"> <!--INDICATIONS DE REGLAGE SUR LA REGLETTE-->
+                <option value="0">
+                <option value="1">
+                <option value="2">
+                <option value="3">
+                <option value="4">
+                <option value="5">
+                <option value="6">
+                <option value="7">
+                <option value="8">
+                <option value="9">
+                <option value="10">
+            </datalist>  
+        </div></center>
+        <input type = "hidden" id ="Arrosoir" name="Arrosoir" value = "-1"  >
+        <input type = "hidden" id ="Reglage_LED" name="Reglage_LED" value = "-1"  >
+        <input type="submit" id="envoi" class ="bouton" value="Appuyer pour régler le chauffage" >   <!--BOUTON AVEC POUR L'ENVOI DES DONNEES-->
+    </form>
+</CENTER>
+
+  <table id="tab" ALIGN='CENTER' > 
+    <CAPTION> DERNIERS REGLAGES DU CHAUFFAGE
+        <div class="dropdown">
+            <button class="dropbtn">AFFICHAGE</button>
+            <div class="dropdown-content">
+            <a href="/nombaff2/5">5  réglages</a>
+            <a href="/nombaff2/10">10 réglages</a>
+            <a href="/nombaff2/20">20 réglages</a>
+            </div>
+        </div>
+    </CAPTION> 
+    <tr>
+        <th WIDTH="40%" BGCOLOR="#FFFFFF"> 
+            Valeur de réglage
+        </th>
+        <th WIDTH="30%" BGCOLOR="#FFFFFF"> 
+            Heure de réglage 
+        </th>
+        <th WIDTH="30%" BGCOLOR="#FFFFFF"> 
+            Date de réglage 
+        </th>
+    </tr>
+    {% for reg in vals %}
+    <tr>
+        <td ALIGN='center' WIDTH="40%" BGCOLOR="#DCDCDC"> 
+            <p>
+                {{reg[0]}} W
+            </p>
+        </td>
+        <td ALIGN = 'center' WIDTH="30%" BGCOLOR="#DCDCDC"> 
+            <p>
+                {{reg[1]}}
+            </p>
+        </td>
+        <td ALIGN = 'center' WIDTH="30%" BGCOLOR="#DCDCDC"> 
+            <p>
+                {{reg[2]}}
+            </p>
+        </td>
+    </tr>
+  {% endfor %}
+
+  <script type="text/javascript">                                                     //AFFICHAGE DE LA VALEUR DE LA GLISSSIERE EN DIRECT
+    var slider = document.getElementById("Chauffage");    //RECUPERATION DE L'ELEMENT OU LA VALEUR EST
+    var output = document.getElementById("affregl");        //NOM DE LA VARIABLE POUR AFFICHER EN DIRECT
+
+    output.innerHTML = slider.value;                        //DANS LA PAGE LA SORTIE EST = A LA VALEUR DE SLIDER : VARIABLE DE REGLAGE_LED
+    slider.oninput = function() {                           //LA VALEUR A RECUPERER EST UNE FONCTION
+        output.innerHTML = this.value;                      //LA SORTIE A AFFICHER EST LE POINTEUR(EMPLACEMENT DE MEMOIRE) PAREIL QUE LA VALEUR RECUPERE
+        }
+  </script>    
+  </body>
+</html>

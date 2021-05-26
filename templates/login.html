@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang = fr>
+	<head> <!--DEFINITION DE LA PAGE WEB POUR LE NAVIGATEUR-->
+		<meta charset="utf-8">
+        <meta name="author" content="©Emmanuel_BOURHIS, LCR , 2021">
+		<title> Dashboard | Connexion</title> 
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylelog.css') }}">
+        <link rel="icon" type="image/ico" href="{{ url_for('static', filename='tbd.png') }}" />
+     
+    </head>
+
+{% block body %}
+<div style="text-align: right;"><a href="/pageadmin" ><i>Administrateurs</i></a>
+</div>
+
+<form action="/login" method="POST">
+    <div class="login">
+        <div class="login-screen">
+            <div class="app-title">
+                <h1>Connexion</h1>
+            </div>
+        <div class="login-form">
+            <div class="control-group">
+				<input type="text" class="login-field" value="" placeholder="nom d'utilisateur" name="username">
+                <label class="login-field-icon fui-user" for="login-name"></label>
+            </div>
+        <div class="control-group">
+			<input type="password" class="login-field" value="" placeholder="mot de passe" name="password">
+            <label class="login-field-icon fui-lock" for="login-pass"></label>
+        </div>
+            <input type="submit" value="Connexion" class="btn btn-primary btn-large btn-block">
+        </div>
+    </div>
+</div>
+</form>
+
+{% endblock %}
+
+</html>

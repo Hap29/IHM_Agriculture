@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html lang = fr>
+	<head> <!--DEFINITION DE LA PAGE WEB POUR LE NAVIGATEUR-->
+		<meta charset="utf-8">
+        <meta name="author" content="©Emmanuel_BOURHIS, LCR , 2021">
+		<title> Dashboard | Admin</title> 
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style4.css') }}">
+        <link rel="icon" type="image/ico" href="{{ url_for('static', filename='tbd.png') }}" />
+ 
+    </head>
+    
+    <script>
+        function pec() {
+          alert("Le nouveau mot de passe est : "+ document.getElementById('uppass').value);
+        }
+
+        function conf(){
+            if (confirm("Voulez vous vraiment entrer l'utilisateur ?")) { 
+            document.ajouterUser.submit();
+            }
+            else{
+                alert("Action annulée.");
+            }
+        }
+     
+    </script>
+
+    <body>
+        <header>
+            <ul>
+                <li>
+                    <a class="active"><FONT COLOR= #2c405a ><b>IHM AGRICULTURE</b></FONT></a>
+                </li>
+            </ul>
+        </header>
+        <p><a href="/logout" class="decon">Deconnexion</a></p>
+
+        <table id="tab" ALIGN='CENTER' >
+            <caption>Ajouter un utilisateur</caption>
+            <tr>
+                <td>
+                    <form action="/pageadmin0" method="POST" name ="ajouterUser">
+                        Nouvel utilisateur :
+                        <input type="text" id ="adduser" name="adduser" size="20">
+                        Mot de passe       :
+                        <input type="password" id ="addpass" name="addpass" size="20"> 
+                        <input type= "radio" name="priv" id="priv" value="admin"> Admin
+                        <input type= "radio" name="priv" id="priv" value="user" checked> User
+                    </form>
+                    <div ALIGN='CENTER'><p><button onclick="conf()" >Ajout d'un utilisateur</button></p></div>
+                </td>
+            </tr>
+        </table>
+        <!-- <br>{{addu,addp}}<br> -->
+        <p style="text-align: center;">
+            ---------------------------------------------------------------------------------------------------------------------
+        </p>
+        <table id="tab" ALIGN='CENTER' >
+            <caption>Configuration utilisateurs<br>UNE MODIFICATION EST PRISE EN COMPTE SANS CONFIRMATION</caption>
+            <tr>
+                <td>
+                <form action="/pageadmin1" method="POST">
+                    <div>
+                    <input type="search" id="maRecherche" name="maRecherche"
+                    placeholder="Recherche d'un utilisateur" size="30">
+                    <button >Rechercher</button>
+                    </div>
+                </form>
+                <br>
+                    {% if ok == True and aff != 'admin' %}   
+
+                        Utilisateur cherché : {{aff}}<br><br>
+                </td>
+                <td>
+                        Supprimer l'utilisateur ?        <br>
+                        <form action="/pageadmin2" method="POST"><input type="hidden" id="loginc" name="loginc" value={{loginc}}>
+                        <button >Supprimer le compte : {{aff}}</button></form>
+                </td>
+                <td>
+
+                        Modifier le mot de passe ?<br>
+                        <form action="/pageadmin3" method="POST"><input type="password" id ="uppass" name="uppass" size="20"><br><input type="hidden" id="loginc" name="loginc" value={{loginc}}>
+                        <button onclick="pec()" >Modifier le mdp du compte : {{aff}}</button></form>
+
+                    {% elif ok == True and aff == 'admin'%}
+
+                    Utilisateur cherché : {{aff}}<br><br>
+                </td>
+                <td>
+
+                        Admin par défaut ne peut pas être supprimé ! <br>
+                </td>
+                <td>
+
+                        Modifier le mot de passe ?<br>
+                        <form action="/pageadmin3" method="POST"><input type="password" id ="uppass" name="uppass" size="20"><br><input type="hidden" id="loginc" name="loginc" value={{loginc}}>
+                        <button onclick="pec()" >Modifier le mdp du compte : {{aff}}</button></form>
+                
+                    {% elif ok == False%} 
+                        L'utilisateur {{aff}} n'existe pas !
+                    {%else%}
+                        Cherchez un utilisateur ...
+                    {%endif%}
+                </td>
+            </tr>
+        </table>
+        <br>
+            
+            {% if entree == True %}
+
+            <script>document.location.href="pageadmin"
+            alert("L'utilisateur : {{nvuser}} n'a pas été ajouté.\nIl existe déjà ! "); </script>
+
+            {%elif entree == False %}
+
+            <script>document.location.href="pageadmin"
+            alert("L'utilisateur : {{nvuser}} a été ajouté.\nSon mot de passe est : {{aspass}}\nPrivilège : {{priv}} "); </script>
+
+            {%elif entree == 'echar' %}
+
+            <script>document.location.href="pageadmin"
+            alert("Pas d'ajout.\nIl existe une erreur de saisie !\nUn champ vide n'est pas valide. "); </script> 
+            
+            {%endif%}
+
+    </body>
+</html>

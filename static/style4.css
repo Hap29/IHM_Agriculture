@@ -40,18 +40,30 @@ li a:hover:not(.active) {  /* COULEUR SI MENU PAS SURVOLE PAR LA SOURIS*/
   color : #2c405a ;
 
 }
-/*-PARAMETRE DU TABLEAU-*/
+
+.pagereg{
+  border-radius: 5px;
+  border: solid thin #929292;
+  background: #F6F6F6;
+  color: black;
+  padding: 3px 8px;
+  margin: 2px;
+  text-decoration: none;
+}
+
 /*-----------------------------------------*/
 #tab {
   font-family: Arial, Helvetica, sans-serif;
   border-radius: 8px;
   border-width: 1px;
+  border: solid 1px black;
+}
+#tab caption{
+  padding-bottom: 5px;
 }
 
 #tab td {
   border: 1px solid black;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px ;
 }
 
 #tab th {
@@ -66,38 +78,6 @@ li a:hover:not(.active) {  /* COULEUR SI MENU PAS SURVOLE PAR LA SOURIS*/
   
 }
 
-/*-----------------------------------------*/
-/* STYLE DES JAUGES DE TEMPERATURE */
-div.compteur{   
-    float:left;
-    display:inline;
-    position:relative;
-    margin:50px;
-    width:200px;
-    height:200px;
-  }
-  
-div.compteur input{
-    position:absolute;
-    top:65px;
-    left:50px;
-    font-size:40px;
-    text-align:center;
-    width:120px;
-    border:none;
-    background:none;
-    outline:none;
-    line-height:1em;
-  }
-  
-div.compteur canvas{
-    position:absolute;
-    top:0;
-    left:0px;
-    right:0px;
-    bottom:0px;
-  }
-/*-----------------------------------------*/
 /*SCROLL BAR SUR LE COTE                  */
 
 /* width */
@@ -123,13 +103,49 @@ div.compteur canvas{
   background: #555; 
 }
 /*-----------------------------------------*/
-
-.decon{
-  border-radius: 5px;
-  border: solid thin #929292;
-  background: #F6F6F6;
-  color: black;
-  padding: 3px 8px;
-  margin-left: 2px;
-  text-decoration: none;
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px;
+  font-size: 16px;
+  border: none;
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 5px 5px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+.decon
+  {
+    border-radius: 5px;
+    border: solid thin #929292;
+    background: #F6F6F6;
+    color: black;
+    padding: 3px 8px;
+    margin-left: 2px;
+    text-decoration: none;
+  }

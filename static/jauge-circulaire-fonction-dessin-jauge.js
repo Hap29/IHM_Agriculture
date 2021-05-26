@@ -15,7 +15,7 @@
   //DESSIN D'UN CERCLE
   ctx.arc(taille,taille,(taille/100*85), -1/2*Math.PI , ratio*2*Math.PI-1/2*Math.PI);
   //TAILLE D'UN BORD
-  ctx.lineWidth = (taille/100*20);
+  ctx.lineWidth = (taille/110*13); //12 = EPAISSEUR
   //COULEUR DU BORD
   ctx.strokeStyle = color;
 

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang = fr>
+	<head> <!--DEFINITION DE LA PAGE WEB POUR LE NAVIGATEUR-->
+		<meta charset="utf-8">
+        <meta name="author" content="©Emmanuel_BOURHIS, LCR , 2021">
+		<title> Dashboard | Mode</title> 
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylereg.css') }}">
+        <link rel="icon" type="image/ico" href="{{ url_for('static', filename='tbd.png') }}" />
+    </head>
+
+    <body>
+        <header><!--EN-TETE DE PAGE-->
+    
+            <ul>  <!--MENU PRINCIPAL DU HAUT DE PAGE-->
+                <li>
+                    <a class="active"><FONT COLOR= #2c405a ><b>IHM AGRICULTURE</b></FONT></a>
+                </li>
+                <li>   
+                    <a href="/">VALEURS DIRECT</a>
+                </li>
+                <li>   
+                    <a href="/commandeL">COMMANDE LED</a>
+                </li>
+                <li>   
+                    <a href="/commandeC">COMMANDE CHAUFFAGE</a>
+                </li>
+                <li>   
+                    <a href="/commandeA">COMMANDE ARROSOIR</a>
+                </li>
+                <li>   
+                    <a href="/graphiques">HISTORIQUE DES MESURES</a>
+                </li>
+            </ul>
+
+    </header>
+    <body>
+        
+
+        <table id ="tab" align="center">
+        <caption>REGLAGE MODE AUTOMATIQUE DU CHAUFFAGE
+        </caption>
+        <tr>
+        <form action="/autochnt2/s" id="seuils" method="POST">
+            <td>Réglage des seuils de température :
+                <table id = "tab" align="center">
+                    <tr>
+                        <td>Température    (°C):
+                            <table id = "tabint" align="center">
+                                <tr>
+                                    <td>AIR: <input class="tailleetexte" type="text" id="tempair" name="tempair" value={{dn[1][1]}} maxlength="3">
+                                    </td>
+                                    <td>SOL: <input class="tailleetexte" type="text" id="tempsol" name="tempsol" value={{dn[1][2]}} maxlength="3">
+                                </tr>
+                            </table>
+                        </td>
+                        <input class="tailleetexte" hidden="text" id="humair" name="humair" value={{dn[1][3]}} maxlength="3">
+                        <input class="tailleetexte" hidden="text" id="humsol" name="humsol" value={{dn[1][4]}} maxlength="3">
+                        <input class="tailleetexte" hidden="text" id="enso" name="enso" value={{dn[1][5]}} maxlength="3">
+                    </tr>
+                </table>
+            <input type="submit" class="bouton" value="Changement seuils">
+            </td>
+        </form>
+        </tr>
+        <tr>
+        <form action="/autochnt2/c" id="conditions" method="POST">
+            <td>Réglage des conditions :
+                <table id = "tabint" align="center">
+                    <tr>
+                        <th>
+                            Réglage en dessous des seuils:
+                        </th>
+                        <th>
+                            Réglage au dessus des seuils:
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            Réglage fixe de <input class="tailleetexte" type="text" id="fixdessous" name="fixdessous" value={{dn[1][6]}} maxlength="3"> V
+                        </td>
+                        <td>
+                        <input type="radio" name="type-reg" value="fixe" {{lreg[2]}} /> {#METTRE DU JINJA POUR LE checked #}
+                        Réglage fixe de <input class="tailleetexte" type="text" id="fixdessus" name="fixdessus" value={{dn[1][7]}} maxlength="3"> V<br><div align=center>ou</div>
+                        <input type="radio" name="type-reg" value="prog"  {{lreg[3]}}/>
+                        Réglage progressif :<br>
+                            Augmenter d'un palier de <input class="tailleetexte" type="text" id="palier" name="palier" value={{dn[1][8]}} maxlength="3"> W
+                            quand la température (humidité?corriger) descend de <input class="tailleetexte" type="text" id="dlux" name="dlux" value={{dn[1][9]}} maxlength="3">°C                                 
+                        </td>
+
+                </table>
+                <input type="submit" class="bouton" value="Changement conditions">
+        </form>
+            </td>
+        </tr>
+    </table>
+    
+    </body>
+</html>
